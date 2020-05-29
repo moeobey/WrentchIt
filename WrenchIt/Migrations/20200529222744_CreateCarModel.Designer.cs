@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WrenchIt.Data;
 
 namespace WrenchIt.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200529222744_CreateCarModel")]
+    partial class CreateCarModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,15 +50,15 @@ namespace WrenchIt.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "82983a08-57a1-4229-9b53-43a7086b59ff",
-                            ConcurrencyStamp = "a58947d2-7c75-4610-adf2-6558040b4804",
+                            Id = "5bfd5c17-dd7d-49aa-aea0-dd30a9187f28",
+                            ConcurrencyStamp = "8117ba36-2638-484a-ba02-203e22cffe57",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         },
                         new
                         {
-                            Id = "d782c708-5ee0-4677-a4a7-adef4e894a69",
-                            ConcurrencyStamp = "af197b49-d7a6-43df-9a0f-130e789744a3",
+                            Id = "535daab2-79df-4eb8-aaf2-b47b751ac957",
+                            ConcurrencyStamp = "f0bbc40f-111a-4e96-b8ea-7086f5ad4897",
                             Name = "Employee",
                             NormalizedName = "EMPLOYEE"
                         });

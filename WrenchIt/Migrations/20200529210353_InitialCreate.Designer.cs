@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WrenchIt.Data;
 
 namespace WrenchIt.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200529210353_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,15 +50,15 @@ namespace WrenchIt.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "82983a08-57a1-4229-9b53-43a7086b59ff",
-                            ConcurrencyStamp = "a58947d2-7c75-4610-adf2-6558040b4804",
+                            Id = "ce6c2897-9004-4861-81f2-640036796e2f",
+                            ConcurrencyStamp = "29b14c1e-7e03-4a67-856d-41051a88ed46",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         },
                         new
                         {
-                            Id = "d782c708-5ee0-4677-a4a7-adef4e894a69",
-                            ConcurrencyStamp = "af197b49-d7a6-43df-9a0f-130e789744a3",
+                            Id = "498f2f85-e57d-4c16-994c-b05cbbe360ae",
+                            ConcurrencyStamp = "df8ee3a9-67b6-47d9-bef1-2e643599e366",
                             Name = "Employee",
                             NormalizedName = "EMPLOYEE"
                         });
@@ -229,33 +231,6 @@ namespace WrenchIt.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
-                });
-
-            modelBuilder.Entity("WrenchIt.Models.Car", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<long>("Miles")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("Model")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Vin")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Year")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Car");
                 });
 
             modelBuilder.Entity("WrenchIt.Models.Category", b =>

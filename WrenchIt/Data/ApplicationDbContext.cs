@@ -20,6 +20,8 @@ namespace WrenchIt.Data
         public DbSet<Service> Services { get; set; }
         public DbSet<Labor> Labor { get; set; }
 
+        public  DbSet<Car> Car { get; set; }
+
         public DbSet<ServiceType> ServiceTypes { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
