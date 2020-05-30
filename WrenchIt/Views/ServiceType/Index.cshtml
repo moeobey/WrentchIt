@@ -18,7 +18,45 @@
     <br />
     <br />
 
-    <table id="tblData" class="table table table-striped table-bordered" style="width:100%">
+    <table id="tblData" class="table table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Rate</th>
+                <th>Description</th>
+                <th>Category</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var data in Model)
+            {
+                <tr>
+                    <td>@data.Name</td>
+                    <td>@data.Rate</td>
+                    <td>@data.Description</td>
+                    <td>@data.Category</td>
+                    <td>
+
+                        <div class="text-center">
+                            <a href="/services/Edit/${data}" class='btn btn-success text-white' style='cursor:pointer; width:100px;'>
+                                <i class='far fa-edit'></i> Edit
+                            </a>
+                            &nbsp;
+                            <a onclick=Delete("/services/Delete/${data}") class='btn btn-danger text-white' style='cursor:pointer; width:100px;'>
+                                <i class='far fa-trash-alt'></i> Delete
+                            </a>
+                        </div>
+                    </td>
+
+                   
+                </tr>
+
+            }
+        </tbody>
+    </table>
+
+    @*<table id="tblData" class="table table table-striped table-bordered" style="width:100%">
         <thead>
             <tr>
                 <th>Name</th>
@@ -27,8 +65,9 @@
                 <th>Category</th>
                 <th></th>
             </tr>
+
         </thead>
-    </table>
+    </table>*@
 </div>
 
 
