@@ -14,7 +14,7 @@ function loadDataTable() {
           
             { "data": "name", "width": "20%" },
             { "data": "serviceType.name", "width": "20%" },
-            { "data": "image", "width": "20%" },
+         //   { "data": "image", "width": "20%" },
             { "data": "description", "width": "20%" },
             
           

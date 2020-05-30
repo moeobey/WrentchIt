@@ -19,11 +19,15 @@ namespace WrenchIt.Data.RepositoryBase
             _context = context;
             Service = new ServiceRepository(_context);
             ServiceType = new ServiceTypeRepository(_context);
+            Car = new CarRepository(_context);
         }
+
 
         public IServiceRepository Service { get; private set; }
 
         public IServiceTypeRepository ServiceType { get; private set; }
+
+        public ICarRepository Car { get; private set; }
 
         public void Dispose()
         {
