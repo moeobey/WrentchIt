@@ -11,11 +11,13 @@ function loadDataTable() {
             "datatype": "json"
         },
         "columns": [
-            { "data": "serviceName", "width": "20%" },
-            { "data": "category.name", "width": "20%" },
-            //{ "data": "price", "width": "15%" },
-            //{ "data": "labor.timeOfJob", "width": "15%" },
-            //{ "data": "labor.pricePerHour", "width": "15%" },
+          
+            { "data": "name", "width": "20%" },
+            { "data": "serviceType.name", "width": "20%" },
+            { "data": "image", "width": "20%" },
+            { "data": "description", "width": "20%" },
+            
+          
             {
                 "data": "id",
                 "render": function (data) {
@@ -59,3 +61,47 @@ function Delete(url) {
         });
     });
 }
+
+
+//<table id="tblData" class="table table table-striped table-bordered">
+//    <thead>
+//        <tr>
+//            <th>Name</th>
+//            <th>Category Name</th>
+//            <th>Price</th>
+//            <th>Time of Job</th>
+//            <th>Price per Hour</th>
+//        </tr>
+//    </thead>
+//    <tbody>
+//        @foreach (var data in Model)
+//            {
+//            <tr>
+//                <td>@data.Name</td>
+//                <td>@data.ServiceType</td>
+//                <td>@data.Description</td>
+//                <td>@data.Description</td>
+
+//                <td>@data.Description</td>
+
+
+
+//                    @*<td>
+
+//                    <div class="text-center">
+//                        <a href="/ServiceType/Edit/@data.Id" class='btn btn-success text-white' style='cursor:pointer; width:100px;'>
+//                            <i class='far fa-edit'></i> Edit
+//                            </a>
+//                            &nbsp;
+//                            <a onclick=Delete("/ServiceType/Delete/@data.Id") class='btn btn-danger text-white' style='cursor:pointer; width:100px;'>
+//                                <i class='far fa-trash-alt'></i> Delete
+//                            </a>
+//                        </div>
+//                    </td> *@
+
+
+//                </tr>
+
+//            }
+//        </tbody>
+//    </table >

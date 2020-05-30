@@ -78,7 +78,7 @@
                     <label asp-for="Service.ServiceType"></label>
                 </div>
                 <div class="col-8">
-                    @Html.DropDownListFor(m => m.Service.ServiceTypeId, new SelectList(Model.ServiceTypeList, "id", "Name"), "Select Branch ", new { @class = "form-control", required = "required" })
+                    @Html.DropDownListFor(m => m.Service.ServiceTypeId, new SelectList(Model.ServiceTypeList, "Id", "Name"), "Select Service Type ", new { @class = "form-control", required = "required" })
 
                 </div>
             </div>

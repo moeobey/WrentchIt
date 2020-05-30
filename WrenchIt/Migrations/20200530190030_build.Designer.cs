@@ -10,8 +10,8 @@ using WrenchIt.Data;
 namespace WrenchIt.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200530173420_updatedServiceType")]
-    partial class updatedServiceType
+    [Migration("20200530190030_build")]
+    partial class build
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -50,15 +50,15 @@ namespace WrenchIt.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "f858edc2-625d-42c2-81c5-68f202fe3946",
-                            ConcurrencyStamp = "ede2f535-4f87-40a5-9e5b-cb714cb7ec4e",
+                            Id = "e900b9ee-b4bb-4bbc-8b84-d5d88a322043",
+                            ConcurrencyStamp = "c71cb171-eec3-4a31-89a2-ddb86f514c7b",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         },
                         new
                         {
-                            Id = "f3b08c67-77e5-452e-afab-ff8d6c49e9f0",
-                            ConcurrencyStamp = "c62dd83f-ade5-4eb0-9ffa-c86c6c9b04a5",
+                            Id = "04909275-0754-4492-8b0c-386501b1470a",
+                            ConcurrencyStamp = "1df94912-4528-4e1f-af8b-8c7261dead74",
                             Name = "Employee",
                             NormalizedName = "EMPLOYEE"
                         });
@@ -310,10 +310,7 @@ namespace WrenchIt.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long>("CarId")
-                        .HasColumnType("bigint");
-
-                    b.Property<int?>("CarId1")
+                    b.Property<int>("CarId")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
@@ -326,17 +323,14 @@ namespace WrenchIt.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long>("ServiceTypeId")
-                        .HasColumnType("bigint");
-
-                    b.Property<int?>("ServiceTypeId1")
+                    b.Property<int>("ServiceTypeId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CarId1");
+                    b.HasIndex("CarId");
 
-                    b.HasIndex("ServiceTypeId1");
+                    b.HasIndex("ServiceTypeId");
 
                     b.ToTable("Services");
                 });
@@ -432,11 +426,15 @@ namespace WrenchIt.Migrations
                 {
                     b.HasOne("WrenchIt.Models.Car", "Car")
                         .WithMany()
-                        .HasForeignKey("CarId1");
+                        .HasForeignKey("CarId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("WrenchIt.Models.ServiceType", "ServiceType")
                         .WithMany()
-                        .HasForeignKey("ServiceTypeId1");
+                        .HasForeignKey("ServiceTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

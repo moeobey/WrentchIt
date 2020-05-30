@@ -48,15 +48,15 @@ namespace WrenchIt.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "f858edc2-625d-42c2-81c5-68f202fe3946",
-                            ConcurrencyStamp = "ede2f535-4f87-40a5-9e5b-cb714cb7ec4e",
+                            Id = "8f3260a6-c9cb-4678-b0bf-0d199f49b45c",
+                            ConcurrencyStamp = "0fbca8e7-ebff-4215-9401-b1450df576ca",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         },
                         new
                         {
-                            Id = "f3b08c67-77e5-452e-afab-ff8d6c49e9f0",
-                            ConcurrencyStamp = "c62dd83f-ade5-4eb0-9ffa-c86c6c9b04a5",
+                            Id = "ee043da1-184d-464c-aecb-278981c803d2",
+                            ConcurrencyStamp = "d11b8b30-12f7-44fb-8126-13403c602068",
                             Name = "Employee",
                             NormalizedName = "EMPLOYEE"
                         });
@@ -308,12 +308,6 @@ namespace WrenchIt.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long>("CarId")
-                        .HasColumnType("bigint");
-
-                    b.Property<int?>("CarId1")
-                        .HasColumnType("int");
-
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
@@ -324,17 +318,12 @@ namespace WrenchIt.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long>("ServiceTypeId")
-                        .HasColumnType("bigint");
-
-                    b.Property<int?>("ServiceTypeId1")
+                    b.Property<int>("ServiceTypeId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CarId1");
-
-                    b.HasIndex("ServiceTypeId1");
+                    b.HasIndex("ServiceTypeId");
 
                     b.ToTable("Services");
                 });
@@ -428,13 +417,11 @@ namespace WrenchIt.Migrations
 
             modelBuilder.Entity("WrenchIt.Models.Service", b =>
                 {
-                    b.HasOne("WrenchIt.Models.Car", "Car")
-                        .WithMany()
-                        .HasForeignKey("CarId1");
-
                     b.HasOne("WrenchIt.Models.ServiceType", "ServiceType")
                         .WithMany()
-                        .HasForeignKey("ServiceTypeId1");
+                        .HasForeignKey("ServiceTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

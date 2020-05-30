@@ -6,10 +6,11 @@
 }
 
 <br />
+
 <div class="border backgroundWhite">
     <div class="row">
         <div class="col-6">
-            <h2 class="text-primary">Service List</h2>
+            <h2 class="text-primary">Service Type List</h2>
         </div>
         <div class="col-6 text-right">
             <a asp-action="Edit" class="btn btn-primary"><i class="fas fa-plus"></i> &nbsp; Create New Service Type</a>
@@ -17,6 +18,7 @@
     </div>
     <br />
     <br />
+
 
     <table id="tblData" class="table table table-striped table-bordered">
         <thead>
@@ -39,35 +41,22 @@
                     <td>
 
                         <div class="text-center">
-                            <a href="/services/Edit/${data}" class='btn btn-success text-white' style='cursor:pointer; width:100px;'>
+                            <a href="/ServiceType/Edit/@data.Id" class='btn btn-success text-white' style='cursor:pointer; width:100px;'>
                                 <i class='far fa-edit'></i> Edit
                             </a>
                             &nbsp;
-                            <a onclick=Delete("/services/Delete/${data}") class='btn btn-danger text-white' style='cursor:pointer; width:100px;'>
+                            <a onclick=Delete("/ServiceType/Delete/@data.Id") class='btn btn-danger text-white' style='cursor:pointer; width:100px;'>
                                 <i class='far fa-trash-alt'></i> Delete
                             </a>
                         </div>
                     </td>
 
-                   
+
                 </tr>
 
             }
         </tbody>
     </table>
-
-    @*<table id="tblData" class="table table table-striped table-bordered" style="width:100%">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Rate</th>
-                <th>Description</th>
-                <th>Category</th>
-                <th></th>
-            </tr>
-
-        </thead>
-    </table>*@
 </div>
 
 

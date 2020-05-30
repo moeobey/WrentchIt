@@ -22,12 +22,10 @@ namespace WrenchIt.Models
         [Display(Name = "Image")]
         public string ImageUrl { get; set; }
 
-        public long CarId { get; set; }
 
-        public Car Car { get; set; }
+        public int ServiceTypeId { get; set; }
 
-        public long ServiceTypeId { get; set; }
-        public ServiceType ServiceType {get; set;}
+        public ServiceType ServiceType { get; set; }
 
 
 

@@ -30,13 +30,16 @@ namespace WrenchIt.Controllers
         // GET: Service
         public async Task<IActionResult> Index()
         {
+            //var data = _context.Service.GetAll(includeProperties: "ServiceType");
             return View();
         }
 
         [HttpGet]
         public IActionResult GetAll()
         {
-            return Json(new { data = _context.Service.GetAll() });
+            var data = _context.Service.GetAllServices();
+
+            return Json(new { data = _context.Service.GetAllServices()});
         }
 
         public IActionResult Edit(int? id)
@@ -46,7 +49,6 @@ namespace WrenchIt.Controllers
             {
                 Service = new Models.Service(),
                 ServiceTypeList = _context.ServiceType.GetAll()
-             //   CategoryList = _context.Category.GetCategoryListForDropDown(),
             };
             
             
