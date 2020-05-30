@@ -73,6 +73,7 @@ namespace WrenchIt.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
+          //  returnUrl = "/home";
             returnUrl = returnUrl ?? Url.Content("~/");
 
             if (ModelState.IsValid)
@@ -83,7 +84,7 @@ namespace WrenchIt.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    return LocalRedirect(returnUrl);
+                    return RedirectToAction("index", "Home");
                 }
                 if (result.RequiresTwoFactor)
                 {
