@@ -41,10 +41,11 @@ namespace WrenchIt.Controllers
 
         public IActionResult Edit(int? id)
         {
-           
+
             ServiceViewModel serviceViewModel = new ServiceViewModel()
             {
                 Service = new Models.Service(),
+                ServiceTypeList = _context.ServiceType.GetAll()
              //   CategoryList = _context.Category.GetCategoryListForDropDown(),
             };
             

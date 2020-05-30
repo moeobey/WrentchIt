@@ -33,5 +33,25 @@ namespace WrenchIt.Controllers
             //return Json(new { data = _context.ServiceType.GetAll(includeProperties: "Category") });
             return Json(new { data = _context.ServiceType.GetAll() });
         }
+
+        public IActionResult Edit(int? id)
+        {
+
+            ServiceViewModel serviceViewModel = new ServiceViewModel()
+            {
+                Service = new Models.Service(),
+                ServiceTypeList = _context.ServiceType.GetAll()
+                //   CategoryList = _context.Category.GetCategoryListForDropDown(),
+            };
+
+
+            if (id != null)
+            {
+                serviceViewModel.Service = _context.Service.Get(id.GetValueOrDefault());
+            }
+            return View(new ServiceType());
+
+        }
+
     }
 }
