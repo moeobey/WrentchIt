@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
@@ -36,7 +37,7 @@ namespace WrenchIt.Controllers
 
         public IActionResult Edit(int? id)
         {
-
+            var serviceType = new ServiceType();
             ServiceViewModel serviceViewModel = new ServiceViewModel()
             {
                 Service = new Models.Service(),
@@ -47,10 +48,40 @@ namespace WrenchIt.Controllers
 
             if (id != null)
             {
-                serviceViewModel.Service = _context.Service.Get(id.GetValueOrDefault());
+                serviceType = _context.ServiceType.Get(id.GetValueOrDefault());
             }
-            return View(new ServiceType());
+            return View(serviceType);
 
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(ServiceType serviceType)
+        {
+            if (ModelState.IsValid)
+            {
+                string webRootPath = _hostEnvironment.WebRootPath;
+                var files = HttpContext.Request.Form.Files;
+                if (serviceType.Id == 0)
+                {
+                    //new service service type
+                
+                    _context.ServiceType.Add(serviceType);
+                }
+                else
+                {
+                    //edit service
+                
+                    _context.ServiceType.Update(serviceType);
+                }
+                _context.Save();
+                return RedirectToAction(nameof(Index));
+            }
+            else
+            {
+                return View(serviceType);
+            }
         }
 
     }

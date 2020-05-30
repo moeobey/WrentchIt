@@ -1,6 +1,7 @@
 ﻿var dataTable;
 $(document).ready(function () {
     loadDataTable();
+
 });
 
 function loadDataTable() {
@@ -11,8 +12,10 @@ function loadDataTable() {
             "datatype": "json"
         },
         "columns": [
-            { "data": "serviceName", "width": "20%" },
-            { "data": "category.name", "width": "20%" },
+            { "data": "name", "width": "20%" },
+            { "data": "rate", "width": "20%" },
+            { "data": "description", "width": "20%" },
+            { "data": "category", "width": "20%" },
             //{ "data": "price", "width": "15%" },
             //{ "data": "labor.timeOfJob", "width": "15%" },
             //{ "data": "labor.pricePerHour", "width": "15%" },
@@ -20,10 +23,10 @@ function loadDataTable() {
                 "data": "id",
                 "render": function (data) {
                     return `<div class="text-center">
-                                <a href="/services/Edit/${data}" class='btn btn-success text-white' style='cursor:pointer; width:100px;'>
+                                <a href="/serviceType/Edit/${data}" class='btn btn-success text-white' style='cursor:pointer; width:100px;'>
                                 <i class ='far fa-edit'></i> Edit </a>
                                 &nbsp;
-                                <a onclick=Delete("/services/Delete/${data}") class='btn btn-danger text-white' style='cursor:pointer; width:100px;'>
+                                <a onclick=Delete("/serviceType/Delete/${data}") class='btn btn-danger text-white' style='cursor:pointer; width:100px;'>
                                 <i class ='far fa-trash-alt'></i> Delete </a>
                             </div>`;
                 }, "width": "30%"
