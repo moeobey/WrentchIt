@@ -27,7 +27,8 @@ namespace WrenchIt.Models
         [Display(Name = "Zip Code")]
         public int ZipCode { get; set; }
 
-        public int Car { get; set; }
+        public long CarId { get; set; }
+        public Car Car { get; set; }
 
         [ForeignKey("IdentityUser")]
         public string IdentityUserId { get; set; }

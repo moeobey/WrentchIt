@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace WrenchIt.Migrations
 {
-    public partial class nuke : Migration
+    public partial class build : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -47,31 +47,20 @@ namespace WrenchIt.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Category",
+                name: "Car",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: false),
-                    DisplayOrder = table.Column<int>(nullable: false)
+                    Name = table.Column<string>(nullable: true),
+                    Year = table.Column<string>(nullable: true),
+                    Model = table.Column<string>(nullable: true),
+                    Miles = table.Column<long>(nullable: false),
+                    Vin = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Category", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Labor",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    TimeOfJob = table.Column<double>(nullable: false),
-                    PricePerHour = table.Column<double>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Labor", x => x.Id);
+                    table.PrimaryKey("PK_Car", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -81,7 +70,10 @@ namespace WrenchIt.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(nullable: false),
-                    Price = table.Column<double>(nullable: false)
+                    Rate = table.Column<double>(nullable: false),
+                    Description = table.Column<string>(nullable: true),
+                    CategoryId = table.Column<long>(nullable: false),
+                    Category = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -206,12 +198,19 @@ namespace WrenchIt.Migrations
                     City = table.Column<string>(nullable: true),
                     State = table.Column<string>(nullable: true),
                     ZipCode = table.Column<int>(nullable: false),
-                    Car = table.Column<int>(nullable: false),
+                    CarId = table.Column<long>(nullable: false),
+                    CarId1 = table.Column<int>(nullable: true),
                     IdentityUserId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Customers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Customers_Car_CarId1",
+                        column: x => x.CarId1,
+                        principalTable: "Car",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Customers_AspNetUsers_IdentityUserId",
                         column: x => x.IdentityUserId,
@@ -227,38 +226,39 @@ namespace WrenchIt.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(nullable: false),
-                    Price = table.Column<double>(nullable: false),
                     Description = table.Column<string>(nullable: true),
                     ImageUrl = table.Column<string>(nullable: true),
-                    CategoryId = table.Column<int>(nullable: false),
-                    LaborId = table.Column<int>(nullable: false)
+                    CarId = table.Column<long>(nullable: false),
+                    CarId1 = table.Column<int>(nullable: true),
+                    ServiceTypeId = table.Column<long>(nullable: false),
+                    ServiceTypeId1 = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Services", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Services_Category_CategoryId",
-                        column: x => x.CategoryId,
-                        principalTable: "Category",
+                        name: "FK_Services_Car_CarId1",
+                        column: x => x.CarId1,
+                        principalTable: "Car",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Services_Labor_LaborId",
-                        column: x => x.LaborId,
-                        principalTable: "Labor",
+                        name: "FK_Services_ServiceTypes_ServiceTypeId1",
+                        column: x => x.ServiceTypeId1,
+                        principalTable: "ServiceTypes",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "e6df2e61-e189-4037-9f59-d3c29d721011", "b4907a7f-a0e4-4ff3-8f37-54518642bd1d", "Customer", "CUSTOMER" });
+                values: new object[] { "f3895ebc-6ed6-4d9b-b5b2-1ec6e2c831fb", "7f08597b-31ed-413a-812d-15982ac2cf8c", "Customer", "CUSTOMER" });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "e99c1d95-7cba-441e-a697-d46eef103c66", "b0d972b6-1887-43d4-8f72-511eedc2c5d7", "Employee", "EMPLOYEE" });
+                values: new object[] { "800be7c6-d109-428d-af4b-437b783a26ab", "d0b2dcfd-9aee-41ea-999c-fd8760ed52fb", "Employee", "EMPLOYEE" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -300,19 +300,24 @@ namespace WrenchIt.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Customers_CarId1",
+                table: "Customers",
+                column: "CarId1");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Customers_IdentityUserId",
                 table: "Customers",
                 column: "IdentityUserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Services_CategoryId",
+                name: "IX_Services_CarId1",
                 table: "Services",
-                column: "CategoryId");
+                column: "CarId1");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Services_LaborId",
+                name: "IX_Services_ServiceTypeId1",
                 table: "Services",
-                column: "LaborId");
+                column: "ServiceTypeId1");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -339,19 +344,16 @@ namespace WrenchIt.Migrations
                 name: "Services");
 
             migrationBuilder.DropTable(
-                name: "ServiceTypes");
-
-            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "Category");
+                name: "Car");
 
             migrationBuilder.DropTable(
-                name: "Labor");
+                name: "ServiceTypes");
         }
     }
 }

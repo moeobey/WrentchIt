@@ -13,9 +13,9 @@ function loadDataTable() {
         "columns": [
             { "data": "serviceName", "width": "20%" },
             { "data": "category.name", "width": "20%" },
-            { "data": "price", "width": "15%" },
-            { "data": "labor.timeOfJob", "width": "15%" },
-            { "data": "labor.pricePerHour", "width": "15%" },
+            //{ "data": "price", "width": "15%" },
+            //{ "data": "labor.timeOfJob", "width": "15%" },
+            //{ "data": "labor.pricePerHour", "width": "15%" },
             {
                 "data": "id",
                 "render": function (data) {

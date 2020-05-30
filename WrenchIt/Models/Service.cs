@@ -13,11 +13,8 @@ namespace WrenchIt.Models
         public int Id { get; set; }
 
         [Required]
-        [Display(Name ="Service Name")]
+        [Display(Name = "Service Name")]
         public string Name { get; set; }
-
-        [Required]
-        public double Price { get; set; }
 
         public string Description { get; set; }
 
@@ -25,17 +22,13 @@ namespace WrenchIt.Models
         [Display(Name = "Image")]
         public string ImageUrl { get; set; }
 
-        [ForeignKey("CategoryId")]
-        public int CategoryId { get; set; }
-       
-        public Category Category{ get; set; }
+        public long CarId { get; set; }
 
-        [Required]
-        [ForeignKey("LaborId")]
-        public int LaborId { get; set; }
+        public Car Car { get; set; }
 
-        
-        public Labor Labor { get; set; }
+        public long ServiceTypeId { get; set; }
+        public ServiceType ServiceType {get; set;}
+
 
 
     }

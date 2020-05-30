@@ -23,10 +23,9 @@ namespace WrenchIt.Data.RepositoryBase
 
             objFromDb.Name = service.Name;
             objFromDb.Description = service.Description;
-            objFromDb.Price = service.Price;
+            objFromDb.ServiceTypeId = service.ServiceTypeId;
             objFromDb.ImageUrl = service.ImageUrl;
-            objFromDb.CategoryId = service.CategoryId;
-            objFromDb.LaborId = service.LaborId;
+            objFromDb.CarId = service.CarId;
 
             _context.SaveChanges();
         }

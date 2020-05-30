@@ -9,7 +9,6 @@ namespace WrenchIt.Models
     public class ServiceViewModel
     {
         public Service Service { get; set; }
-        public Labor Labor { get; set; }
         public IEnumerable<SelectListItem> CategoryList { get; set; }
     }
 }

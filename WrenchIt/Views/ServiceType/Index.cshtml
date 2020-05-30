@@ -1,4 +1,4 @@
-﻿@*@model WrenchIt.Models.Labor*@
+﻿
 
 @{
     ViewData["Title"] = "Index";
@@ -9,10 +9,10 @@
 <div class="border backgroundWhite">
     <div class="row">
         <div class="col-6">
-            <h2 class="text-primary">Labor</h2>
+            <h2 class="text-primary">Service List</h2>
         </div>
         <div class="col-6 text-right">
-            <a asp-action="Edit" class="btn btn-primary"><i class="fas fa-plus"></i> &nbsp; Create Labor</a>
+            <a asp-action="Edit" class="btn btn-primary"><i class="fas fa-plus"></i> &nbsp; Create New Service Type</a>
         </div>
     </div>
     <br />
@@ -21,8 +21,10 @@
     <table id="tblData" class="table table table-striped table-bordered" style="width:100%">
         <thead>
             <tr>
-                <th>Time of Job</th>
-                <th>Price per Hour</th>
+                <th>Name</th>
+                <th>Rate</th>
+                <th>Description</th>
+                <th>Category</th>
                 <th></th>
             </tr>
         </thead>
@@ -30,6 +32,7 @@
 </div>
 
 
+
 @section Scripts{
-    <script src="~/js/labor.js"></script>
+    <script src="~/js/serviceType.js"></script>
 }

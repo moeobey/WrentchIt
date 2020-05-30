@@ -16,22 +16,14 @@ namespace WrenchIt.Data
         }
 
         public DbSet<Customer> Customers { get; set; }
-        public DbSet<Category> Category { get; set; }
         public DbSet<Service> Services { get; set; }
-        public DbSet<Labor> Labor { get; set; }
-
-        public  DbSet<Car> Car { get; set; }
-
+        public  DbSet<Car> Cars { get; set; }
         public DbSet<ServiceType> ServiceTypes { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
             builder.Entity<IdentityRole>().HasData(new IdentityRole
-            //{
-            //    Name = "Admin",
-            //    NormalizedName = "ADMIN"
-            //},
-            //new IdentityRole
+      
             {
                 Name = "Customer",
                 NormalizedName = "CUSTOMER"
