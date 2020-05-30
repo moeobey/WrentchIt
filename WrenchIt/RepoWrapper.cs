@@ -20,6 +20,7 @@ namespace WrenchIt.Data.RepositoryBase
             Service = new ServiceRepository(_context);
             ServiceType = new ServiceTypeRepository(_context);
             Car = new CarRepository(_context);
+            Employee = new EmployeeRepository(_context);
         }
 
 
@@ -28,6 +29,8 @@ namespace WrenchIt.Data.RepositoryBase
         public IServiceTypeRepository ServiceType { get; private set; }
 
         public ICarRepository Car { get; private set; }
+
+        public IEmployeeRepository Employee { get; private set; }
 
         public void Dispose()
         {

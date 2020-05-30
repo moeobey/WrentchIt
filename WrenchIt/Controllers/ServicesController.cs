@@ -30,6 +30,7 @@ namespace WrenchIt.Controllers
         // GET: Service
         public async Task<IActionResult> Index()
         {
+           var data =  User.Claims.ToList();
             //var data = _context.Service.GetAll(includeProperties: "ServiceType");
             return View();
         }

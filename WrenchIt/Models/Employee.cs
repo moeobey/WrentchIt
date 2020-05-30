@@ -6,9 +6,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
+
 namespace WrenchIt.Models
 {
-    public class Customer
+    public class Employee
     {
         public int Id { get; set; }
 
@@ -26,9 +27,6 @@ namespace WrenchIt.Models
 
         [Display(Name = "Zip Code")]
         public int ZipCode { get; set; }
-
-        public int CarId { get; set; }
-        public Car Car { get; set; }
 
         [ForeignKey("IdentityUser")]
         public string IdentityUserId { get; set; }

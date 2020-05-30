@@ -10,8 +10,8 @@ using WrenchIt.Data;
 namespace WrenchIt.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200530191011_removedCarIDFromServiceTable")]
-    partial class removedCarIDFromServiceTable
+    [Migration("20200530202841_build")]
+    partial class build
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -50,15 +50,15 @@ namespace WrenchIt.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "8f3260a6-c9cb-4678-b0bf-0d199f49b45c",
-                            ConcurrencyStamp = "0fbca8e7-ebff-4215-9401-b1450df576ca",
+                            Id = "ebd9eb45-ccd2-4371-9c0b-3ccaac6062f1",
+                            ConcurrencyStamp = "3aad93a8-1cae-4342-baa2-faa3aa62f28a",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         },
                         new
                         {
-                            Id = "ee043da1-184d-464c-aecb-278981c803d2",
-                            ConcurrencyStamp = "d11b8b30-12f7-44fb-8126-13403c602068",
+                            Id = "0df040f5-a072-4462-a4ec-5b589aad2251",
+                            ConcurrencyStamp = "24180b5b-79be-4bbf-a684-9b5ba1aed83b",
                             Name = "Employee",
                             NormalizedName = "EMPLOYEE"
                         });
@@ -270,10 +270,7 @@ namespace WrenchIt.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long>("CarId")
-                        .HasColumnType("bigint");
-
-                    b.Property<int?>("CarId1")
+                    b.Property<int>("CarId")
                         .HasColumnType("int");
 
                     b.Property<string>("City")
@@ -296,11 +293,46 @@ namespace WrenchIt.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CarId1");
+                    b.HasIndex("CarId");
 
                     b.HasIndex("IdentityUserId");
 
                     b.ToTable("Customers");
+                });
+
+            modelBuilder.Entity("WrenchIt.Models.Employee", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IdentityUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("State")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ZipCode")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdentityUserId");
+
+                    b.ToTable("Employees");
                 });
 
             modelBuilder.Entity("WrenchIt.Models.Service", b =>
@@ -410,8 +442,17 @@ namespace WrenchIt.Migrations
                 {
                     b.HasOne("WrenchIt.Models.Car", "Car")
                         .WithMany()
-                        .HasForeignKey("CarId1");
+                        .HasForeignKey("CarId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "IdentityUser")
+                        .WithMany()
+                        .HasForeignKey("IdentityUserId");
+                });
+
+            modelBuilder.Entity("WrenchIt.Models.Employee", b =>
+                {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "IdentityUser")
                         .WithMany()
                         .HasForeignKey("IdentityUserId");
