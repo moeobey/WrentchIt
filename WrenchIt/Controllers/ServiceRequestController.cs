@@ -2,19 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Security.Claims;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using WrenchIt.Data;
 using WrenchIt.Data.RepositoryBase.IRepository;
 using WrenchIt.Models;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using Nancy.Json;
 using Microsoft.AspNetCore.Authorization;
 
 namespace WrenchIt.Controllers
@@ -35,7 +27,7 @@ namespace WrenchIt.Controllers
         }
         public IActionResult Index()
         {
-            var uri = baseurl + "services";
+            var uri = baseurl + "services/GetServices";
             object data = null;
             try
             {
