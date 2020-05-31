@@ -63,7 +63,7 @@ namespace WrenchIt.Controllers
             return View();
         }
 
-
+    
         public IActionResult ServiceRequests(int? id)
         {
             var uri = baseurl + "/services/GetServiceRequestByCustomerId/" + id;
@@ -90,7 +90,8 @@ namespace WrenchIt.Controllers
                 {
                     model = new ServiceRequestViewModel
                     {
-                        Id = item.ServiceId,
+                        Id = item.Id,
+                        ServiceId = item.ServiceId,
                         Name = _newContext.Service.Get(item.ServiceId).Name,
                         Customer = _newContext.Customer.Get(item.CustomerId).FirstName,
                         Quote = item.PriceQuotation,
@@ -108,9 +109,90 @@ namespace WrenchIt.Controllers
 
             return View(viewModel);
         }
-        // POST: Customers/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
+        public IActionResult CreateServiceRequest()
+        {
+            var viewModel = new CServiceRequestViewModel()
+            {
+                Service = new Models.Service(),
+                ServiceList = _newContext.Service.GetAll()
+            };
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult CreateServiceRequest(ServiceRequest request)
+        {
+            var service = _newContext.Service.Get(request.Id);
+            if (ModelState.IsValid)
+            {
+                return (RedirectToAction("ApproveServiceRequest", service));
+            }
+            return View(service);
+        }
+        public double CalculateQuote(int serviceId)
+        {
+            var service = _newContext.Service.GetServiceWithType(serviceId);
+            double quote;
+
+            if (service.ServiceType.Category == Category.Maintenance)
+            {
+                quote = service.ServiceType.Rate * 2;
+            }
+            else
+            {
+                quote = service.ServiceType.Rate * 5;
+            }
+            return quote;
+        }
+        public IActionResult ApproveServiceRequest(Service service)
+        {
+            var viewModel = new ApproveServiceViewModel()
+            {
+                Service = _newContext.Service.GetServiceWithType(service.Id),
+                Quote = CalculateQuote(service.Id)
+            };
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Approve(Service service)
+        {
+            var serviceRequest = new ServiceRequest()
+            {
+                ServiceId = service.Id,
+
+            };
+
+            if (ModelState.IsValid)
+            {
+                object output = null;
+                var url = baseurl + "services/PostService";
+                var jsonObject = JsonConvert.SerializeObject(serviceRequest);
+                HttpContent c = new StringContent(jsonObject, System.Text.Encoding.UTF8, "application/json");
+
+                try
+                {
+                    var responseTask = client.PostAsync(url, c).Result;
+                    output = responseTask.Content.ReadAsStringAsync().Result;
+                }
+                catch (Exception ex)
+                {
+                    output = ex;
+                }
+
+                return RedirectToAction(nameof(Index));
+            }
+            else
+            {
+                return View(service);
+            }
+        }
+
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Customer customer)
@@ -142,9 +224,7 @@ namespace WrenchIt.Controllers
             return View(customer);
         }
 
-        // POST: Customers/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+      
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,Address,City,State,ZipCode,Car,IdentityUserId")] Customer customer)
@@ -197,7 +277,7 @@ namespace WrenchIt.Controllers
             return View(customer);
         }
 
-        // POST: Customers/Delete/5
+       
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

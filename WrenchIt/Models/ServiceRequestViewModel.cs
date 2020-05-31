@@ -9,6 +9,8 @@ namespace WrenchIt.Models
     public class ServiceRequestViewModel
     {
         public int Id { get; set; }
+
+        public int ServiceId { get; set; }
         public string Name { get; set; }
         public string Customer { get; set; }
 

@@ -8,6 +8,7 @@ namespace WrenchIt.Models
 {
     public class ServiceRequest
     {
+        public int Id { get; set; }
         public int ServiceId { get; set; }
         public int CustomerId { get; set; }
         public double PriceQuotation { get; set; }

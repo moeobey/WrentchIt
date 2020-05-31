@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace WrenchIt.Models
 {
-    public class CServiceRequestViewModel
+    public class ApproveServiceViewModel
     {
-        public IEnumerable<Service>  ServiceList { get; set; }
         public Service Service { get; set; }
-        public int ServiceId { get; set; }
-
+        public double Quote { get; set; }
     }
 }

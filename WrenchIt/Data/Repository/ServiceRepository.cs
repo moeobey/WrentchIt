@@ -24,7 +24,13 @@ namespace WrenchIt.Data.RepositoryBase
            
             return _context.Services.Include(c => c.ServiceType).OrderByDescending(c => c.Id).ToList();
         }
-      
+       public Service GetServiceWithType(int id)
+        {
+            return _context.Services.Include(c => c.ServiceType).FirstOrDefault();
+
+        }
+
+
         public void Update(Service service)
         {
             var  objFromDb = _context.Services.FirstOrDefault(i => i.Id == service.Id);
