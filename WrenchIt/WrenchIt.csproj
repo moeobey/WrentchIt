@@ -6,7 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Controllers\ServiceRequetController.cs" />
     <Compile Remove="Migrations\20200527171712_nuke.cs" />
     <Compile Remove="Migrations\20200527171712_nuke.Designer.cs" />
   </ItemGroup>
@@ -31,16 +30,13 @@
     <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="3.1.4" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.3" />
     <PackageReference Include="MySql.Data" Version="8.0.20" />
+    <PackageReference Include="Nancy" Version="2.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Migrations\" />
     <Folder Include="wwwroot\Images\servicePics\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Controllers\ServiceRequetController.cs" />
   </ItemGroup>
 
 </Project>

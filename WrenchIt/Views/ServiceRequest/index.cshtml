@@ -12,9 +12,7 @@
         <div class="col-6">
             <h2 class="text-primary">Service Request List</h2>
         </div>
-        <div class="col-6 text-right">
-            <a asp-action="Edit" class="btn btn-primary"><i class="fas fa-plus"></i> &nbsp; Create New Service Type</a>
-        </div>
+       
     </div>
     <br />
     <br />
@@ -23,35 +21,44 @@
     <table id="tblData" class="table table table-striped table-bordered">
         <thead>
             <tr>
-                <th>Name</th>
+                <th>Service Name</th>
                 <th>Customer Name</th>
-                <th>Quote</th>
-                <th>Date</th>
+                <th>Quote($)</th>
                 <th>Status</th>
+                <th>Date</th>
                 <th>Action</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var data in Model)
             {
-                <tr>
-                    <td>@data.Name</td>
-                    <td>@data.Customer</td>
-                    <td>@data.Quote</td>
-                    <td>@data.IsCompleted</td>
-                    <td>@data.CreaedAt</td>
-                    <td>
+            <tr>
+                <td>@data.Name</td>
+                <td>@data.Customer</td>
+                <td>@data.Quote .00</td>
 
-                        <div class="text-center">
-                            <a href="/ServiceType/Edit/@data.Id" class='btn btn-success text-white' style='cursor:pointer; width:100px;'>
-                                <i class='far fa-edit'></i> Details
-                            </a>
-                            
-                        </div>
-                    </td>
+                @if (data.IsCompleted)
+                {
+                    <td class="bg-success">Completed</td>
+
+                }
+                else
+                {
+                    <td class="bg-danger">In complete</td>
+                }
+                <td>@data.CreatedAt</td>
+                <td>
+
+                    <div class="text-center">
+                        <a href="/ServiceType/Edit/@data.Id" class='btn btn-success text-white' style='cursor:pointer; width:100px;'>
+                            <i class='far fa-edit'></i> Details
+                        </a>
+
+                    </div>
+                </td>
 
 
-                </tr>
+            </tr>
 
             }
         </tbody>

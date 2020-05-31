@@ -16,6 +16,8 @@ namespace WrenchIt.Data.RepositoryBase.IRepository
         IServiceTypeRepository ServiceType { get; }
 
         ICarRepository Car { get; }
+        ICustomerRepository Customer { get; }
+        IEmployeeRepository Employee { get; }
       
         public void Save();
 
