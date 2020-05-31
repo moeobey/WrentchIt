@@ -13,7 +13,7 @@ using WrenchIt.Data.RepositoryBase.IRepository;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 
-namespace WrenchIt.Controllers
+namespace WrenchIt.Controllers  
 {
     public class CustomersController : Controller
     {
