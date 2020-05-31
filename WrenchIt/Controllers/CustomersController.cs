@@ -38,8 +38,20 @@ namespace WrenchIt.Controllers
         // GET: Customers
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Customers.Include(c => c.IdentityUser);
-            return View(await applicationDbContext.ToListAsync());
+            if (User.IsInRole("Customer"))
+            {
+                var claimsIdentity = (ClaimsIdentity)this.User.Identity;
+                var claim = claimsIdentity.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
+                var userId = claim.Value;
+                List<Customer> cust = new List<Customer>();
+                var loggedInCustomer = _newContext.Customer.GetByUserId(userId);
+
+                cust.Add(loggedInCustomer);
+
+                return View(cust);
+            }
+            var customers = _newContext.Customer.GetAll();
+            return View(customers);
         }
 
         // GET: Customers/Details/5
@@ -163,7 +175,6 @@ namespace WrenchIt.Controllers
             var id = fc["serviceId"];
             var service = _newContext.Service.Get(Convert.ToInt32(id));
 
-            var test = _newContext.Customer.GetByUserId(userId).Id;
 
             var serviceRequest = new ServiceRequest()
             {

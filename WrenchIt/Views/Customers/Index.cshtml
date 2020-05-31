@@ -9,7 +9,7 @@
 
 <p>
     @* <a asp-action="Create">Create New</a>*@
-    @if (User.IsInRole("Employee"))
+    @if (User.IsInRole("Customer"))
     {
 
         <a asp-action="CreateServiceRequest">Create Service Request</a>

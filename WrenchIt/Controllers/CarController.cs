@@ -32,8 +32,11 @@ namespace WrenchIt.Controllers
         }
         public IActionResult Index()
         {
-           
-            var data = _context.Car.GetAll();
+            var claimsIdentity = (ClaimsIdentity)this.User.Identity;
+            var claim = claimsIdentity.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
+            var userId = claim.Value;
+           var customerId =  _context.Customer.GetByUserId(userId).Id;
+            var data = _context.Car.GetCustomerCars(customerId);
             return View(data);
         }
 
