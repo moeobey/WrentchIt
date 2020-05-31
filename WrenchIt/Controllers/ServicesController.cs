@@ -81,7 +81,7 @@ namespace WrenchIt.Controllers
                     {
                         files[0].CopyTo(fileStream);
                     }
-                    service.ImageUrl = @"\images\servicePics" + fileName + extension;
+                    service.ImageUrl = @"\images\servicePics\" + fileName + extension;
                     _context.Service.Add(service);
                 }
                 else
@@ -106,6 +106,7 @@ namespace WrenchIt.Controllers
                             files[0].CopyTo(fileStream);
                         }
                         service.ImageUrl = @"\images\servicePics\" + fileName + newExtension;
+                      
 
                     }
                     else

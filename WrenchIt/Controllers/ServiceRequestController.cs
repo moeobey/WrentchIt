@@ -27,7 +27,7 @@ namespace WrenchIt.Controllers
         }
         public IActionResult Index()
         {
-            var uri = baseurl + "services/GetServices";
+            var uri = baseurl + "services";
             object data = null;
             try
             {

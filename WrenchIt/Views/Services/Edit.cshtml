@@ -44,7 +44,7 @@
                     <label asp-for="Service.ImageUrl"></label>
                 </div>
                 <div class="col-8">
-                    <input type="file" name="files" id="uploadBox" multiple class="form-control" required/>
+                    <input type="file" name="files" id="uploadBox" multiple class="form-control" required />
                     <span asp-validation-for="Service.ImageUrl" class="text-danger"></span>
 
                 </div>
@@ -80,14 +80,12 @@
                     }
                 </div>
             </div>
-            <div class="col-3">
-                <img src="~/wwwroot/Images/servicePics/a4c64a6c-4745-491c-bc50-488e86fcc73b.jpg" width="100" style="border-radius:5px; border:1px solid #bbb9b9" />
-            </div>
+          
         </div>
         @if (Model.Service.Id != 0)
         {
             <div class="col-3">
-                <img src="~/wwwroot/Images/servicePics/a4c64a6c-4745-491c-bc50-488e86fcc73b.jpg" width="100" style="border-radius:5px; border:1px solid #bbb9b9" />
+                <img src="@Model.Service.ImageUrl" width="100%" style="border-radius:5px; border:1px solid #bbb9b9" />
             </div>
         }
     </div>
