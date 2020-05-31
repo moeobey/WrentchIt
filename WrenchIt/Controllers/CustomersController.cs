@@ -87,8 +87,7 @@ namespace WrenchIt.Controllers
             foreach (var item in results)
             {
                 var model = viewModel.FirstOrDefault();
-                if (model == null) //the transaction is unique
-                {
+              
                     model = new ServiceRequestViewModel
                     {
                         Id = item.Id,
@@ -100,14 +99,7 @@ namespace WrenchIt.Controllers
                         CreatedAt = item.CreatedAt
                     };
                     viewModel.Add(model);
-                }
             }
-
-
-
-
-
-
             return View(viewModel);
         }
 
