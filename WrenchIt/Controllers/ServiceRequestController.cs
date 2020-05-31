@@ -67,13 +67,89 @@ namespace WrenchIt.Controllers
                     viewModel.Add(model);
                 }
             }
-
-            
-            
-           
-        
-
             return View(viewModel);
+        }
+
+        public IActionResult Edit(int? id)
+        {
+            var uri = baseurl + "services/GetService/" + id;
+            object data = null;
+            try
+            {
+                var responseTask = client.GetAsync(uri).Result;
+                data = responseTask.Content.ReadAsStringAsync().Result;
+
+            }
+            catch (Exception ex)
+            {
+                data = ex;
+            }
+
+            dynamic response = JsonConvert.DeserializeObject(data.ToString());
+            ServiceRequest item = response.ToObject<ServiceRequest>();
+
+               var viewModel = new ServiceRequestViewModel
+                    {
+                        Id = item.ServiceId,
+                        Name = _context.Service.Get(item.ServiceId).Name,
+                        Customer = _context.Customer.Get(item.CustomerId).FirstName,
+                        Quote = item.PriceQuotation,
+                        IsCompleted = item.IsCompleted,
+                        CreatedAt = item.CreatedAt
+                    };
+          
+            return View(viewModel);
+
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(ServiceRequestViewModel request)
+        {
+            var uri = baseurl + "services/GetService/" + request.Id;
+            object data = null;
+            try
+            {
+                var responseTask = client.GetAsync(uri).Result;
+                data = responseTask.Content.ReadAsStringAsync().Result;
+
+            }
+            catch (Exception ex)
+            {
+                data = ex;
+            }
+
+            dynamic response = JsonConvert.DeserializeObject(data.ToString());
+            ServiceRequest item = response.ToObject<ServiceRequest>();
+            item.IsCompleted = true;
+
+
+
+
+            if (ModelState.IsValid)
+            {
+                object output = null;
+                var url = baseurl + "services/PutService";
+                var jsonObject = JsonConvert.SerializeObject(item);
+                HttpContent c = new StringContent(jsonObject, System.Text.Encoding.UTF8, "application/json");
+
+                try
+                {
+                    var responseTask = client.PutAsync(url, c).Result;
+                    output = responseTask.Content.ReadAsStringAsync().Result;
+                }
+                catch (Exception ex)
+                {
+                    data = ex;
+                }
+
+                return RedirectToAction(nameof(Index));
+            }
+            else
+            {
+                return View(request);
+            }
         }
     }
 }

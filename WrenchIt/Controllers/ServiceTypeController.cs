@@ -58,8 +58,6 @@ namespace WrenchIt.Controllers
         {
             if (ModelState.IsValid)
             {
-                string webRootPath = _hostEnvironment.WebRootPath;
-                var files = HttpContext.Request.Form.Files;
                 if (serviceType.Id == 0)
                 {
                     //new service service type
