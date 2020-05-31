@@ -9,6 +9,8 @@ namespace WrenchIt.Models
     public class ApproveServiceViewModel
     {
         public Service Service { get; set; }
+
+        public int serviceId { get; set; }
         public double Quote { get; set; }
     }
 }

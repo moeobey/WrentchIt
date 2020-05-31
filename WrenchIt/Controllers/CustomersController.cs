@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 using System.Net.Http;
 using WrenchIt.Data.RepositoryBase.IRepository;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 
 namespace WrenchIt.Controllers
 {
@@ -158,18 +159,26 @@ namespace WrenchIt.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Approve(Service service)
+        public IActionResult Approve(IFormCollection fc)
         {
+            var id = fc["serviceId"];
+            var service = _newContext.Service.Get(Convert.ToInt32(id));
+
+
+
             var serviceRequest = new ServiceRequest()
             {
                 ServiceId = service.Id,
-
+                CustomerId = 5,
+                PriceQuotation = CalculateQuote(service.Id),
+                CreatedAt = DateTime.Now,
+                IsCompleted = false
             };
 
             if (ModelState.IsValid)
             {
                 object output = null;
-                var url = baseurl + "services/PostService";
+                var url = baseurl + "/services/PostService";
                 var jsonObject = JsonConvert.SerializeObject(serviceRequest);
                 HttpContent c = new StringContent(jsonObject, System.Text.Encoding.UTF8, "application/json");
 
@@ -187,7 +196,7 @@ namespace WrenchIt.Controllers
             }
             else
             {
-                return View(service);
+                return View(fc);
             }
         }
 
