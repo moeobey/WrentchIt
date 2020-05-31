@@ -21,7 +21,7 @@ namespace WrenchIt.Data.RepositoryBase
 
         public IEnumerable<Service> GetAllServices()
         {
-
+           
             return _context.Services.Include(c => c.ServiceType).OrderByDescending(c => c.Id).ToList();
         }
       

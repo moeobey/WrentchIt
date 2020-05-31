@@ -10,6 +10,7 @@ namespace WrenchIt.Contracts
 {
     public interface ICarRepository:IRepoBase<Car>
     {
+        IEnumerable<Car> GetCustomerCars(int id);
         void Update(Car car);
 
     }

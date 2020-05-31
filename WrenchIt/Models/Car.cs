@@ -18,5 +18,7 @@ namespace WrenchIt.Models
         public long Miles { get; set; }
 
         public string Vin { get; set; }
+        public int CustomerId { get; set; }
+        public Customer Customer { get; set; }
     }
 }

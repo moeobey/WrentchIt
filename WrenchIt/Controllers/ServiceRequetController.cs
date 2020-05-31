@@ -14,30 +14,42 @@ using WrenchIt.Models;
 
 namespace WrenchIt.Controllers
 {
-    public class CarController : Controller
+    public class ServiceRequest : Controller
     {
+        private static string baseurl = "localhost:5000/api";
+        private static HttpClient client = new HttpClient();
 
-        private readonly IRepoWrapper _context;
-        private readonly IWebHostEnvironment _hostEnvironment;
-
-
-
-        public CarController(IRepoWrapper context, IWebHostEnvironment hostEnvironment)
+        public ServiceRequest(IRepoWrapper context, IWebHostEnvironment hostEnvironment)
         {
             _hostEnvironment = hostEnvironment;
             _context = context;
         }
         public IActionResult Index()
         {
-           
-            var data = _context.Car.GetAll();
+            var uri = baseUrl + "GetAll";
+            object data = null;
+            try
+            {
+                var responseTask = client.GetAsync(uri).Result;
+                var result = responseTask.Content.ReadAsStringAsync().Result;
+                return result;
+            }
+            catch (Exception ex)
+            {
+                data = ex;
+            }
+            var ServiceRequestViewModel = new ServiceRequestViewModel()
+            {
+
+            };
+
             return View(data);
         }
 
         public IActionResult Edit(int? id)
         {
             var car = new Car();
-           
+
 
             if (id != null)
             {

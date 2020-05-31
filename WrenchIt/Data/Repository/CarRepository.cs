@@ -21,7 +21,11 @@ namespace WrenchIt.Data.Repository
         }
 
       
+        public IEnumerable<Car> GetCustomerCars(int id)
+        {
+            return _context.Cars.OrderByDescending(c => c.Id).Where(c=>c.Id == id).ToList();
 
+        }
         public void Update(Car car)
         {
               var  objFromDb = _context.Cars.FirstOrDefault(i => i.Id == car.Id);

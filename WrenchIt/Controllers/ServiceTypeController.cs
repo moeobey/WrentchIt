@@ -40,12 +40,7 @@ namespace WrenchIt.Controllers
         public IActionResult Edit(int? id)
         {
             var serviceType = new ServiceType();
-            ServiceViewModel serviceViewModel = new ServiceViewModel()
-            {
-                Service = new Models.Service(),
-                ServiceTypeList = _context.ServiceType.GetAll()
-                //   CategoryList = _context.Category.GetCategoryListForDropDown(),
-            };
+         
 
 
             if (id != null)

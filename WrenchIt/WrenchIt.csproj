@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Controllers\ServiceRequetController.cs" />
     <Compile Remove="Migrations\20200527171712_nuke.cs" />
     <Compile Remove="Migrations\20200527171712_nuke.Designer.cs" />
   </ItemGroup>
@@ -36,6 +37,10 @@
   <ItemGroup>
     <Folder Include="Migrations\" />
     <Folder Include="wwwroot\Images\servicePics\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Controllers\ServiceRequetController.cs" />
   </ItemGroup>
 
 </Project>

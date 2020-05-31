@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WrenchIt.Data;
 
 namespace WrenchIt.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200530225029_editedCustomerModel")]
+    partial class editedCustomerModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,15 +50,15 @@ namespace WrenchIt.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "23eec87a-f508-4abf-9a43-7a862c7af129",
-                            ConcurrencyStamp = "a191e331-46a4-469f-b87a-67091402f299",
+                            Id = "1e81225f-e74a-43d1-9684-8bc3be96c515",
+                            ConcurrencyStamp = "6494d9ae-bd58-4065-8394-4911d2acff5b",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         },
                         new
                         {
-                            Id = "2acc8c90-9228-4f18-a018-8e643b49ed29",
-                            ConcurrencyStamp = "e718880a-76ff-4a8c-80cf-f738351019d8",
+                            Id = "d99fbff3-4306-4421-96bd-fad543883e15",
+                            ConcurrencyStamp = "81103611-72e5-436e-bb1f-ea33076496fc",
                             Name = "Employee",
                             NormalizedName = "EMPLOYEE"
                         });
@@ -238,7 +240,10 @@ namespace WrenchIt.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CustomerId")
+                    b.Property<int?>("CustomerId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CustonerId")
                         .HasColumnType("int");
 
                     b.Property<long>("Miles")
@@ -440,9 +445,7 @@ namespace WrenchIt.Migrations
                 {
                     b.HasOne("WrenchIt.Models.Customer", "Customer")
                         .WithMany()
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CustomerId");
                 });
 
             modelBuilder.Entity("WrenchIt.Models.Customer", b =>
