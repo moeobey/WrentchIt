@@ -15,9 +15,11 @@ using WrenchIt.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Nancy.Json;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WrenchIt.Controllers
 {
+    [Authorize]
     public class ServiceRequestController : Controller
     {
         private static string baseurl = "https://localhost:44361/api/";

@@ -12,9 +12,13 @@ using System.Net.Http;
 using WrenchIt.Data.RepositoryBase.IRepository;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace WrenchIt.Controllers  
 {
+    [Authorize]
+    
     public class CustomersController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -153,15 +157,18 @@ namespace WrenchIt.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Approve(IFormCollection fc)
         {
+            var claimsIdentity = (ClaimsIdentity)this.User.Identity;
+            var claim = claimsIdentity.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
+            var userId = claim.Value;
             var id = fc["serviceId"];
             var service = _newContext.Service.Get(Convert.ToInt32(id));
 
-
+            var test = _newContext.Customer.GetByUserId(userId).Id;
 
             var serviceRequest = new ServiceRequest()
             {
                 ServiceId = service.Id,
-                CustomerId = 5,
+                CustomerId = _newContext.Customer.GetByUserId(userId).Id,
                 PriceQuotation = CalculateQuote(service.Id),
                 CreatedAt = DateTime.Now,
                 IsCompleted = false
@@ -199,8 +206,15 @@ namespace WrenchIt.Controllers
         public async Task<IActionResult> Create(Customer customer)
         {
             if (ModelState.IsValid)
+
             {
+                var claimsIdentity = (ClaimsIdentity)this.User.Identity;
+                var claim = claimsIdentity.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
+                var userId = claim.Value;
+
+                customer.IdentityUserId = userId;
                 _context.Customers.Add(customer);
+              
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }

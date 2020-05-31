@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -14,6 +15,8 @@ using WrenchIt.Models;
 
 namespace WrenchIt.Controllers
 {
+    [Authorize(Roles = "Customer")]
+
     public class CarController : Controller
     {
 
@@ -58,7 +61,12 @@ namespace WrenchIt.Controllers
                 if (car.Id == 0)
                 {
                     //new service service type
-                    car.CustomerId = 5;
+                    var claimsIdentity = (ClaimsIdentity)this.User.Identity;
+                    var claim = claimsIdentity.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
+                    var userId = claim.Value;
+
+                    var custId = _context.Customer.GetByUserId(userId).Id;
+                    car.CustomerId = custId;
                     _context.Car.Add(car);
                 }
                 else

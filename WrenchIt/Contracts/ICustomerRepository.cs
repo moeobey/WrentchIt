@@ -10,6 +10,6 @@ namespace WrenchIt.Contracts
 {
     public interface ICustomerRepository : IRepoBase<Customer>
     {
-      
+        Customer GetByUserId(string id);
     }
 }
