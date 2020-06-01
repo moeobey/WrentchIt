@@ -26,7 +26,7 @@ namespace WrenchIt.Data.RepositoryBase
         }
        public Service GetServiceWithType(int id)
         {
-            return _context.Services.Include(c => c.ServiceType).FirstOrDefault();
+            return _context.Services.Include(c => c.ServiceType).Where(c=>c.Id == id).FirstOrDefault();
 
         }
 

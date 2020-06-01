@@ -53,6 +53,7 @@ namespace WrenchIt.Controllers
                         Id = item.Id,
                         ServiceId = item.ServiceId,
                             Name = _context.Service.Get(item.ServiceId).Name ,
+                            Car = _context.Car.Get(item.CarId).Name,
                             Customer = _context.Customer.Get(item.CustomerId).FirstName,
                             Quote = item.PriceQuotation,
                             IsCompleted = item.IsCompleted,

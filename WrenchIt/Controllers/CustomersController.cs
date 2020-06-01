@@ -109,6 +109,7 @@ namespace WrenchIt.Controllers
                         Id = item.Id,
                         ServiceId = item.ServiceId,
                         Name = _newContext.Service.Get(item.ServiceId).Name,
+                        Car = _newContext.Car.Get(item.CarId).Name,
                         Customer = _newContext.Customer.Get(item.CustomerId).FirstName,
                         Quote = item.PriceQuotation,
                         IsCompleted = item.IsCompleted,
@@ -121,10 +122,16 @@ namespace WrenchIt.Controllers
 
         public IActionResult CreateServiceRequest()
         {
+            var claimsIdentity = (ClaimsIdentity)this.User.Identity;
+            var claim = claimsIdentity.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
+            var userId = claim.Value;
+            var customerId = _newContext.Customer.GetByUserId(userId).Id;
             var viewModel = new CServiceRequestViewModel()
             {
                 Service = new Models.Service(),
-                ServiceList = _newContext.Service.GetAll()
+                Car  = new Models.Car(),
+                ServiceList = _newContext.Service.GetAll(),
+                CarList = _newContext.Car.GetCustomerCars(customerId)
             };
             return View(viewModel);
         }
@@ -133,10 +140,13 @@ namespace WrenchIt.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult CreateServiceRequest(ServiceRequest request)
         {
-            var service = _newContext.Service.Get(request.Id);
+            var service = _newContext.Service.Get(request.ServiceId);
+            var car = _newContext.Car.Get(request.CarId);
+
+            
             if (ModelState.IsValid)
             {
-                return (RedirectToAction("ApproveServiceRequest", service));
+                return (RedirectToAction("ApproveServiceRequest", request));
             }
             return View(service);
         }
@@ -155,12 +165,13 @@ namespace WrenchIt.Controllers
             }
             return quote;
         }
-        public IActionResult ApproveServiceRequest(Service service)
+        public IActionResult ApproveServiceRequest(ServiceRequest request)
         {
             var viewModel = new ApproveServiceViewModel()
             {
-                Service = _newContext.Service.GetServiceWithType(service.Id),
-                Quote = CalculateQuote(service.Id)
+                Service = _newContext.Service.GetServiceWithType(request.ServiceId),
+                Car = _newContext.Car.Get(request.CarId),
+                Quote = CalculateQuote(request.ServiceId)
             };
             return View(viewModel);
         }
@@ -173,6 +184,7 @@ namespace WrenchIt.Controllers
             var claim = claimsIdentity.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
             var userId = claim.Value;
             var id = fc["serviceId"];
+            var carId = Convert.ToInt32(fc["carId"]);
             var service = _newContext.Service.Get(Convert.ToInt32(id));
 
 
@@ -180,6 +192,7 @@ namespace WrenchIt.Controllers
             {
                 ServiceId = service.Id,
                 CustomerId = _newContext.Customer.GetByUserId(userId).Id,
+                CarId = carId,
                 PriceQuotation = CalculateQuote(service.Id),
                 CreatedAt = DateTime.Now,
                 IsCompleted = false

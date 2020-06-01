@@ -20,6 +20,7 @@
                     <label asp-for="Service.Name"></label>
                 </div>
                 @Html.Hidden("serviceId", Model.Service.Id)
+                @Html.Hidden("carId", Model.Car.Id)
                 @Html.DisplayFor(model => model.Service.Name)
             </div>
 
@@ -41,6 +42,25 @@
 
                 </div>
             </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Car.Name">Car</label>
+                </div>
+                <div class="col-8">
+                    @Html.DisplayFor(model => model.Car.Name)
+
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Car.Name">Car Model</label>
+                </div>
+                <div class="col-8">
+                    @Html.DisplayFor(model => model.Car.Model)
+
+                </div>
+            </div>
+
 
 
             <div class="form-group row">
@@ -62,7 +82,7 @@
                 </div>
             </div>
             <input type="hidden" id="userId" asp-for="Service.Id" />
-           
+
             <div class="form-group row">
                 <div class="col-8">
 

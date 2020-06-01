@@ -11,6 +11,8 @@ namespace WrenchIt.Models
         public int Id { get; set; }
         public int ServiceId { get; set; }
         public int CustomerId { get; set; }
+
+        public int CarId { get; set; }
         public double PriceQuotation { get; set; }
         public DateTime CreatedAt { get; set; }
         public bool IsCompleted { get; set; }

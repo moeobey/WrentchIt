@@ -25,6 +25,7 @@
                 <th>Customer Name</th>
                 <th>Quote($)</th>
                 <th>Status</th>
+                <th>Customers Car</th>
                 <th>Date</th>
                 <th>Action</th>
             </tr>
@@ -46,6 +47,8 @@
                 {
                     <td class="bg-danger">In complete</td>
                 }
+
+                <td>@data.Car</td>
                 <td>@data.CreatedAt.ToLongDateString()</td>
                 <td>
 

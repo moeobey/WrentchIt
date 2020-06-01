@@ -13,6 +13,7 @@ namespace WrenchIt.Models
         public int ServiceId { get; set; }
         public string Name { get; set; }
         public string Customer { get; set; }
+        public string Car { get; set; }
 
         public double Quote { get; set; }
         public bool IsCompleted { get; set; }
